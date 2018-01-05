@@ -1,5 +1,4 @@
 FROM node:boron-alpine
-RUN npm i -s -g serverless eslint eslint-plugin-chai-expect eslint-plugin-mocha
 
 RUN mkdir /build && cd /build
 
@@ -15,6 +14,5 @@ ADD .static-namespaces.json .
 ADD tools tools
 
 ADD spec spec
-ADD lib lib
 ADD .nycrc .
 RUN npm i -g coveralls
