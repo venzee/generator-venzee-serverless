@@ -1,5 +1,6 @@
-# generator-venzee-serverless [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> Create a Serverless-based Venzee project 
+# generator-venzee-serverless [![NPM version][npm-image]][npm-url] [![Build Status][codeship-image]][codeship-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+
+Create a Serverless-based Venzee project
 
 ## Installation
 
@@ -30,9 +31,7 @@ MIT © [Venzee, Inc.](https://venzee.com)
 
 [npm-image]: https://badge.fury.io/js/generator-venzee-serverless.svg
 [npm-url]: https://npmjs.org/package/generator-venzee-serverless
-[travis-image]: https://travis-ci.org/Venzee/generator-venzee-serverless.svg?branch=master
-[travis-url]: https://travis-ci.org/Venzee/generator-venzee-serverless
-[daviddm-image]: https://david-dm.org/Venzee/generator-venzee-serverless.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/Venzee/generator-venzee-serverless
+[codeship-image]: https://app.codeship.com/projects/9028a000-d498-0135-03e8-622b624e9d8e/status?branch=master
+[codeship-url]: https://app.codeship.com/projects/263059
 [coveralls-image]: https://coveralls.io/repos/Venzee/generator-venzee-serverless/badge.svg
 [coveralls-url]: https://coveralls.io/r/Venzee/generator-venzee-serverless
