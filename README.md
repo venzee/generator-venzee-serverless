@@ -33,5 +33,5 @@ MIT © [Venzee, Inc.](https://venzee.com)
 [npm-url]: https://npmjs.org/package/generator-venzee-serverless
 [codeship-image]: https://app.codeship.com/projects/9028a000-d498-0135-03e8-622b624e9d8e/status?branch=master
 [codeship-url]: https://app.codeship.com/projects/263059
-[coveralls-image]: https://coveralls.io/repos/Venzee/generator-venzee-serverless/badge.svg
-[coveralls-url]: https://coveralls.io/r/Venzee/generator-venzee-serverless
+[coveralls-image]: https://coveralls.io/repos/github/venzee/generator-venzee-serverless/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/venzee/generator-venzee-serverless

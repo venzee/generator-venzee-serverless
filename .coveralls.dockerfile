@@ -1,4 +1,5 @@
 FROM node:boron-alpine
+RUN npm i -s -g eslint eslint-plugin-chai-expect eslint-plugin-mocha prettier eslint-config-prettier eslint-plugin-prettier
 
 RUN mkdir /build && cd /build
 
