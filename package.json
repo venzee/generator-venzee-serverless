@@ -61,7 +61,9 @@
     "run-tests":
       "cross-env LOG_LEVEL=OFF mocha --require ./spec/.config/bootstrap.js --colors --require babel-core/register ./spec/**/*.test.js",
     "run-tdd":
-      "mocha --require ./spec/.config/bootstrap.js --watch --colors --require babel-core/register ./spec/**/*.test.js"
+      "mocha --require ./spec/.config/bootstrap.js --watch --colors --require babel-core/register ./spec/**/*.test.js",
+    "push_to_coveralls":
+      "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "lint-staged": {
     "*.js": ["eslint --fix .", "git add"],
