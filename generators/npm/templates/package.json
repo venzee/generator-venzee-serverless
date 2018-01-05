@@ -1,0 +1,29 @@
+{
+  "name": "",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "install-services": "node ./scripts/installServices.js",
+    "pretest": "eslint --fix .",
+    "test": "npm run run-tests",
+    "tdd": "npm run run-tdd",
+    "coverage": "nyc npm run run-tests",
+    "run-tests":
+      "cross-env LOG_LEVEL=OFF mocha --require ./spec/.config/bootstrap.js       --colors --compilers js:babel-core/register ./spec/**/*.test.js",
+    "run-tdd":
+      "mocha --require ./spec/.config/bootstrap.js --watch --colors --compilers js:babel-core/register ./spec/**/*.test.js",
+    "push_to_coveralls":
+      "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+  },
+  "author": "Venzee, Inc.",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/venzee/venzee-lambda.git"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": ">=6.10.3"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Venzee, Inc.",
+      "authorEmail": "admin@venzee.com",
+      "authorUrl": "https://venzee.com"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+- name: 'lint'
+  service: coveralls
+  command: eslint .
+- name: push to coveralls
+  service: coveralls
+  command: npm run push_to_coveralls

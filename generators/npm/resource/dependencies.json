@@ -1,0 +1,43 @@
+[
+  {
+    "action": { "save": true },
+    "packages": ["async", "js-logger", "lodash"]
+  },
+  {
+    "action": { "save-dev": true },
+    "packages": [
+      "async-load-module",
+      "aws-sdk-mock",
+      "babel-cli",
+      "babel-core",
+      "babel-loader",
+      "babel-plugin-istanbul",
+      "babel-plugin-module-resolver",
+      "babel-plugin-namespaces",
+      "babel-preset-env",
+      "chai",
+      "colors",
+      "cross-env",
+      "eslint",
+      "eslint-plugin-chai-expect",
+      "eslint-plugin-mocha",
+      "fs-extra",
+      "glob",
+      "istanbul-instrumenter-loader",
+      "js-yaml",
+      "mocha",
+      "mocha-webpack",
+      "mock-fs",
+      "nyc",
+      "optimist",
+      "proxyquire",
+      "serverless",
+      "serverless-pseudo-parameters",
+      "serverless-step-functions",
+      "serverless-webpack",
+      "sinon",
+      "sinon-chai",
+      "webpack"
+    ]
+  }
+]

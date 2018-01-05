@@ -1,0 +1,7 @@
+coveralls:
+  build:
+    image: venzee/coveralls
+    dockerfile: .coveralls.dockerfile
+  encrypted_env_file: .deploy/coveralls-credentials.encrypted
+  cached: true
+
