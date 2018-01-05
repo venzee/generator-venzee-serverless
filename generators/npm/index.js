@@ -9,8 +9,6 @@ const BasePackage = Object.freeze( {
   version:     null,
   description: 'This repository contains resource definitions for Serverless services, such as Lambda function, Step Functions, etc.',
   author:      'Venzee, Inc.',
-  private:     true,
-  license:     'UNLICENSED',
   scripts:     {
     'install-services': 'node ./scripts/installServices.js',
     pretest:            'eslint --fix .',
@@ -38,15 +36,14 @@ module.exports = class extends Generator{
       = responses.package
       = Object.assign( {}, BasePackage );
 
+
     /* eslint-disable max-len */
     const prompts = [
       { type: 'input', required: true, validate: isValidString, name: 'name', message: 'project name:', default: path.basename( this.destinationPath( '.' ) ) },
       { type: 'input', name: 'version', validate: isValidString, message: 'version:', default: '0.0.1' },
       { type: 'input', name: 'description', validate: isValidString, message: 'description:', default: BasePackage.description },
-      { type: 'input', name: 'repo', message: 'git repository:' },
-      { type: 'input', name: 'keywords', message: 'keywords (space-delimited):' },
-      { type: 'confirm', name: 'private', message: 'Is this a private repository?:', default: true },
-      { type: 'input', name: 'license', validate: isValidString, when: res=>!res.private, message: 'license:', default: 'MIT' }
+      { type: 'input', name: 'repo', message: 'git repository:', default: res=>`https://github.com/venzee/${ res.name }` },
+      { type: 'input', name: 'keywords', message: 'keywords (space-delimited):', default: 'Venzee, Serverless' }
     ];
     /* eslint-enable max-len */
 
@@ -54,15 +51,13 @@ module.exports = class extends Generator{
       .prompt( prompts )
       .then( res=>{
 
-        if( res.name )    pkg.name = res.name.trim();
+        if( res.name ) pkg.name = res.name.trim();
         if( res.version ) pkg.version = res.version.trim();
 
         if( res.description ) pkg.description = res.description.trim();
         if( res.keywords && !res.keywords.match( /^\w?$/ ) ) pkg.keywords = res.keywords.split( ' ' );
 
-        if( res.repo )    pkg.repository = { type: 'git', url: res.repo.trim() };
-        if( res.private ) pkg.private = res.private;
-        if( res.license ) pkg.license = res.license.trim();
+        if( res.repo ) pkg.repository = { type: 'git', url: res.repo.trim() };
 
       } );
 

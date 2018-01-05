@@ -9,6 +9,11 @@ module.exports = class extends Generator{
 
     this.composeWith( require.resolve( '../npm' ) );
     this.composeWith( require.resolve( '../content' ) );
+    this.composeWith( require.resolve( 'generator-license' ), {
+      name:    'Venzee, Inc.',
+      email:   'admin@venzee.com',
+      website: 'https://venzee.com'
+    } );
 
   }
 
@@ -20,3 +25,5 @@ module.exports = class extends Generator{
   }
 
 };
+
+
