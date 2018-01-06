@@ -203,8 +203,8 @@ function createNpmCommandsFor( serviceName ){
         = deploymentStage.toUpperCase();
 
       const entry = {
-        [ `${ entryName }_build` ]:  `cross-env-shell AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID_${ stageEnvKey } AWS_REGION=$AWS_REGION_DEVOPS_TOOLS_${ stageEnvKey } "npm run devops_tools_generate_service_yml && npm run devops_tools_generate_package"`,
-        [ `${ entryName }_deploy` ]: `cross-env-shell AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_${ stageEnvKey } AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_${ stageEnvKey } AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID_${ stageEnvKey } AWS_REGION=$AWS_REGION_DEVOPS_TOOLS_${ stageEnvKey } "npm run ${ serviceName }_generate_service_yml && npm run ${ serviceName }_generate_package && cd lib/services/${ serviceName } && serverless deploy --verbose --package /deploy/${ serviceName }"`,
+        [ `${ entryName }_build` ]:  `cross-env-shell AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID_${ stageEnvKey } AWS_REGION=$AWS_REGION_${ stageEnvKey } "npm run devops_tools_generate_service_yml && npm run devops_tools_generate_package"`,
+        [ `${ entryName }_deploy` ]: `cross-env-shell AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_${ stageEnvKey } AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_${ stageEnvKey } AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID_${ stageEnvKey } AWS_REGION=$AWS_REGION_${ stageEnvKey } "npm run ${ serviceName }_generate_service_yml && npm run ${ serviceName }_generate_package && cd lib/services/${ serviceName } && serverless deploy --verbose --package /deploy/${ serviceName }"`,
       };
 
       return Object.assign( acc, entry );
