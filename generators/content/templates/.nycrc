@@ -15,7 +15,7 @@
     "**/logger/index.js",
     "**/webpack.config.js",
     "coverage",
-    "tools/util/**/*.js",
+    "tools,
     "scripts/**/*.js"
   ],
   "reporter": [

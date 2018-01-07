@@ -1,3 +1,4 @@
 {
-  "common": "./lib/common"
+  "common": "./lib/common",
+  "tools": "./tools"
 }
