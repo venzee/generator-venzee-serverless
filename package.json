@@ -8,7 +8,7 @@
     "email": "admin@venzee.com",
     "url": "https://venzee.com"
   },
-  "files": ["generators"],
+  "files": ["generators", "tools"],
   "main": "generators/index.js",
   "keywords": ["Serverless", "Venzee", "yeoman-generator"],
   "devDependencies": {
@@ -52,7 +52,7 @@
     "yosay": "^2.0.1"
   },
   "scripts": {
-    "prepublish": "nsp check",
+    "prepublishOnly": "nsp check",
     "precommit": "lint-staged",
     "pretest": "eslint --fix .",
     "test": "npm run run-tests",
