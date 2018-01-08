@@ -1,18 +1,18 @@
 # About Deployments
 
 We use CodeShip to deploy to AWS. Before you can build,
-you will need to have to created a new CodeShip Pro (not CodeShip Basic )
-project and connect it to the git repository for this project.
+you will have to created a new CodeShip **Pro** (not CodeShip Basic)
+project and connect it to the Git repository for this project.
 
 ## Preconditions
 
 1. Install CodeShip's CLI [Jet](https://documentation.codeship.com/pro/builds-and-configuration/cli/)
 1. Download you project's [AES Key](https://documentation.codeship.com/pro/builds-and-configuration/environment-variables/#downloading-your-aes-key)
 1. Store the AES Key in the root of the project
-1. Rename the AES key to `codeship.aes`. This last step is not strictly need, but it makes things easier, and the rest of this documentation assumes that you've done it.
+1. Rename the AES key to `codeship.aes`. This last step is not strictly needed, but it makes things easier, and the rest of this documentation assumes that you've done it.
 
 - :exclamation: **AES files must never be checked in!**
-- :information_source: AES keys are ignored by git by default.
+- :information_source: AES keys are ignored by Git by default.
 
 Optionally, if you want to [run local builds](#building-locally), you must install [Docker](https://docs.docker.com/engine/installation/).
 
@@ -57,7 +57,7 @@ The build script needs these variables defined in an encrypted file within the
 [.deploy]('.') folder.
 
 :information_source: You only need to define variables for those environments
-you intend to deploy to via CodeShip
+you intend to deploy to via CodeShip.
 
 :warning *These environmental variables are used by the build service. They have nothing
 to do with your application's environment at runtime.* See CodeShip's
@@ -71,13 +71,13 @@ for more information.
 
    - :exclamation: **`*.env` files must never be checked in!**
    - :information_source: The project is by default configured to ignore `*.env` files
-     when committing and pushing to git.
+     when committing and pushing to Git.
 
 1. Set the 4 environment variables definitions for each environment you want to
    build and deploy on CodeShip.
 
-   For example, if we wanted to build only _dev_, _qa_ and _sandbox_ and not
-   _production_ on CodeShip, we could define the below env file.
+   For example, if we wanted to build only _dev_, _qa_ and _sandbox_ and **not
+   _production_** on CodeShip, we could define the below env file.
 
    ```bash
    AWS_ACCESS_KEY_ID_DEV=********************
@@ -107,9 +107,9 @@ jet encrypt .deploy/.env .deploy/env.encrypted
 
 This creates the file `env.encrypted` in the `.deploy` folder.
 
-:exclamation: **The `.deploy/env.encrypted` must be checked in***
+:exclamation: **The `.deploy/env.encrypted` must be checked in!***
 
-If you want to dig deeper into encrypted variables on CodeShip, check out their
+If you want to learn more about encrypted variables on CodeShip, check out their
 [documentation](https://documentation.codeship.com/pro/builds-and-configuration/environment-variables/#encrypted-environment-variables).
 
 ## Coveralls Credentials
@@ -124,7 +124,7 @@ separate credentials file.
 
    - :exclamation: **`*.env` files must never be checked in!**
    - :information_source: The project is by default configured to ignore `*.env` files
-     when committing and pushing to git.
+     when committing and pushing to Git.
 
 1. Set the `COVERALLS_REPO_TOKEN` environment variable in the file to the value of
    the token of your Coveralls repo.
@@ -140,7 +140,7 @@ separate credentials file.
 
 ### Encrypting the Coveralls credentials file
 
-You encrypt the file using [jet](#preconditions) using the following command:
+You encrypt the file using [Jet](#preconditions) using the following command:
 
 ```bash
 jet encrypt .deploy/coveralls-credentials.env .deploy/coveralls-credentials.encrypted
@@ -148,7 +148,7 @@ jet encrypt .deploy/coveralls-credentials.env .deploy/coveralls-credentials.encr
 
 This creates the file `coveralls-credentials.encrypted` in the `.deploy` folder.
 
-:exclamation: **The `.deploy/coveralls-credentials.encrypted` must be checked in***
+:exclamation: **The `.deploy/coveralls-credentials.encrypted` must be checked in!***
 
 ## Changing credentials
 
@@ -165,7 +165,7 @@ Your general workflow would be this:
   command.
 - Make your changes in the file and save it.
 - Re-[encrypt](#encrypting-the-variables-file) the file
-- :exclamation: *Add, commit and push the encrypted file*
+- :exclamation: **Add, commit and push the encrypted file**
 
 For example, **with the `codeship.aes` file present in your root folder**, if you wanted
 to change values in the `env.encrypted` file, you might do the following:
@@ -175,7 +175,7 @@ to change values in the `env.encrypted` file, you might do the following:
 jet decrypt .deploy/env.encrypted .deploy/.env
 # change value of AWS_ZONE_DEV to us-east-1
 # => this is the OSX syntax, on Linux, omit the " ''" after -i
-sed -i '' -E 's/AWS_ZONE_DEV=.+/TEST=BCD/' .deploy/.env
+sed -i '' -E 's/AWS_ZONE_DEV=.+/AWS_ZONE_DEV=us-east-1/' .deploy/.env
 # encrypt the .deploy/.env file
 jet encrypt .deploy/.env .deploy/env.encrypted
 # commit and push your changes
