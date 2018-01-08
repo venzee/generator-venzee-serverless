@@ -1,9 +1,9 @@
 'use strict';
 const Generator = require( 'yeoman-generator' );
 const path = require( 'path' );
-const fs = require( 'fs' );
+const fs = require( 'fs-extra' );
 
-const TMPL = '.tmpl';
+const TMPL_PREFIX = 'TMPL_';
 
 
 module.exports = class extends Generator{
@@ -19,8 +19,8 @@ module.exports = class extends Generator{
       = fs.readdirSync( this.templatePath() ); // eslint-disable-line no-sync
 
     dirContents
-      .filter( x=>path.extname( x ) !== TMPL )
-      .forEach( fileName=>this.fs.copy( this.templatePath( fileName ), this.destinationPath( fileName ) ) );
+      .filter( x=>!x.startsWith( TMPL_PREFIX ) )
+      .forEach( fileName=>fs.copySync( this.templatePath( fileName ), this.destinationPath( fileName ) ) ); // eslint-disable-line no-sync
 
     const config
       = this.fs.readJSON( this.destinationPath( 'package.json' ) );
@@ -29,8 +29,8 @@ module.exports = class extends Generator{
       = Object.assign( { name: 'venzee-serverless', description: '' }, config );
 
     dirContents
-      .filter( x=>path.extname( x ) === TMPL )
-      .forEach( fileName=>this.fs.copyTpl( this.templatePath( fileName ), this.destinationPath( path.basename( fileName, TMPL ) ), tmplOptions ) ); // eslint-disable-line max-len
+      .filter( x=>x.startsWith( TMPL_PREFIX ) )
+      .forEach( fileName=>this.fs.copyTpl( this.templatePath( fileName ), this.destinationPath( fileName.replace( TMPL_PREFIX, '' ) ), tmplOptions ) ); // eslint-disable-line max-len
 
   }
 
