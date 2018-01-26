@@ -73,7 +73,7 @@ describe( 'The tools/build/populateServicePackages function', ()=>{
 
   it( 'should support full package paths', ()=>{
 
-    const packageMainFilePath = path.join(
+    const stepFunctionPath = path.join(
       '..',
       'lib',
       'packages',
@@ -84,7 +84,7 @@ describe( 'The tools/build/populateServicePackages function', ()=>{
     ).slice( 1 );
 
     const definition
-      = { service: 'SomeService', stepFunctions: [ packageMainFilePath ] };
+      = { service: 'SomeService', stepFunctions: [ stepFunctionPath ] };
 
     const input
       = '<devops_tools_services>/devops_tools';
@@ -111,7 +111,7 @@ describe( 'The tools/build/populateServicePackages function', ()=>{
 
     const mockReadResults = {
       [ expandedServicePath ]: definition,
-      [ packageMainFilePath ]: mockStepFunction
+      [ stepFunctionPath ]:    mockStepFunction
     };
 
     const fsExtraStub
@@ -134,7 +134,7 @@ describe( 'The tools/build/populateServicePackages function', ()=>{
       .to.have.been.calledWith( expandedServicePath );
 
     expect( fsExtraStub[ 'readJsonSync' ] )
-      .to.have.been.calledWith( packageMainFilePath );
+      .to.have.been.calledWith( stepFunctionPath );
 
   } );
 
@@ -342,6 +342,116 @@ describe( 'The tools/build/populateServicePackages function', ()=>{
 
     expect( fsExtraStub[ 'readJsonSync' ] )
       .to.have.been.calledWith( expandedServicePath );
+
+  } );
+
+  it( 'should not throw if no stepFunctions and no functions are defined', ()=>{
+
+    const definition
+      = { service: 'SomeService'  };
+
+    const input
+      = '<devops_tools_services>/devops_tools';
+
+    const expandedServicePath = path.join(
+      '..',
+      'lib',
+      'packages',
+      'devops_services',
+      'services',
+      'devops_tools.json'
+    ).slice( 1 );
+
+    const inputFilePathKey
+      = `${ input }.json`;
+
+    const mockExpandResults = {
+      [ inputFilePathKey ]: expandedServicePath
+    };
+
+    const mockReadResults = {
+      [ expandedServicePath ]: definition
+    };
+
+    const fsExtraStub
+      = { readJsonSync: path=>mockReadResults[ path ] };
+
+    const populateServicePackages = proxyquire( '<tools>/build/populateServicePackages', {
+      'fs-extra':                fsExtraStub,
+      '../util/expandNamespace': path=>mockExpandResults[ path ]
+    } );
+
+    expect( ()=>populateServicePackages( input ) )
+      .not.to.throw();
+
+  } );
+
+  it( 'should append function paths, if defined', ()=>{
+
+    const functionPath = path.join(
+      '..',
+      'lib',
+      'services',
+      'venzee',
+      'functions',
+      'passValue'
+    ).slice( 1 );
+
+    const definition
+      = { service: 'SomeService', functions: [ functionPath ] };
+
+    const input
+      = '<venzee>/index.json';
+
+    const mockFunctionDefinition
+      = { name: 'some function Data - we are mocking and the uit does not validate' };
+
+    const expected
+      = Object.assign( {}, definition, { functions: [ mockFunctionDefinition ] } );
+
+    const expandedServicePath = path.join(
+      '..',
+      'lib',
+      'services',
+      'venzee',
+      'index.json'
+    ).slice( 1 );
+
+
+    const mockExpandResults = {
+      [ input ]:                     expandedServicePath,
+      [ definition.functions[ 0 ] ]: definition.functions[ 0 ]
+    };
+
+    const fullFunctionPath
+      = path.join( functionPath, 'function.json' );
+
+    const mockReadResults = {
+      [ expandedServicePath ]: definition,
+      [ fullFunctionPath ]:    mockFunctionDefinition
+    };
+
+    const fsExtraStub
+      = { readJsonSync: sinon.spy( path=>mockReadResults[ path ] ) };
+
+    const expandNamespaceStub
+      = sinon.spy( path=>mockExpandResults[ path ] );
+
+    const populateServicePackages = proxyquire( '<tools>/build/populateServicePackages', {
+      'fs-extra':                fsExtraStub,
+      '../util/expandNamespace': expandNamespaceStub
+    } );
+
+    const actual = populateServicePackages( input );
+
+    expect( actual )
+      .to.deep.equal( expected );
+
+    expect( fsExtraStub[ 'readJsonSync' ] )
+      .to.have.been.calledWith( expandedServicePath );
+
+    expect( fsExtraStub[ 'readJsonSync' ] )
+      .to.have.been.calledWith( fullFunctionPath );
 
   } );
 

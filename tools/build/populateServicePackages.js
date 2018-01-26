@@ -7,6 +7,7 @@ const expandNamespace = require( '../util/expandNamespace' );
 
 const JsonExtension   = '.json';
 const PackageMainFile = 'index.json';
+const FunctionMainFile = 'function.json';
 
 function populateServicePackagePaths( pathToServiceDefinition ){
 
@@ -20,12 +21,19 @@ function populateServicePackagePaths( pathToServiceDefinition ){
   const serviceDefinition
     = fs.readJsonSync( expandedPath ); // eslint-disable-line no-sync
 
-  const stepFunctions
-    = serviceDefinition.stepFunctions;
+  const {
+    stepFunctions,
+    functions
+  } = serviceDefinition;
 
   try {
 
-    return Object.assign( {}, serviceDefinition, { stepFunctions: stepFunctions.map( mapStepFunctions ) } );
+    return Object.assign(
+      {},
+      serviceDefinition,
+      stepFunctions ? { stepFunctions: stepFunctions.map( mapStepFunctions.bind( null, PackageMainFile ) ) } : null,
+      functions ? { functions: functions.map( mapStepFunctions.bind( null, FunctionMainFile ) ) } : null
+    );
 
   } catch( err ){
 
@@ -37,7 +45,8 @@ function populateServicePackagePaths( pathToServiceDefinition ){
 
 module.exports = populateServicePackagePaths;
 
-function mapStepFunctions( pkg, index ){
+
+function mapStepFunctions( MainFileName, pkg, index ){
 
   if( isObject( pkg ) ) return pkg;
   if( !isString( pkg ) ) /* istanbul ignore next */ throw new Error( `Expected either a string or an object for package at index ${ index }, got ${ typeof pkg }.` ); // eslint-disable-line max-len
@@ -45,9 +54,9 @@ function mapStepFunctions( pkg, index ){
   const expandedPackagePath
     = expandNamespace( pkg, process.cwd() );
 
-  const fullPath = expandedPackagePath.endsWith( PackageMainFile )
+  const fullPath = expandedPackagePath.endsWith( MainFileName )
     ? expandedPackagePath
-    : path.join( expandedPackagePath, PackageMainFile );
+    : path.join( expandedPackagePath, MainFileName );
 
   return fs.readJsonSync( fullPath ); // eslint-disable-line no-sync
 
