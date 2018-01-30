@@ -9,7 +9,7 @@ describe( 'The collectFunctionResourcePaths function', ()=>{
   it( 'should return falsy if no function definitions are found', ()=>{
 
     const collectFunctionDefinitions
-      = require( '<tools>/build/collectFunctionResources/collectFunctionDefinitions' );
+      = require( '<tools>/build/collectFunctionResources/collectFunctionConfigurations' );
 
     expect( collectFunctionDefinitions() )
       .not.to.exist;
@@ -32,7 +32,7 @@ describe( 'The collectFunctionResourcePaths function', ()=>{
       pathToFunctionDefinition
     ];
 
-    const collectFunctionResourcePaths = proxyquire( '<tools>/build/collectFunctionResources/collectFunctionDefinitions',{ // eslint-disable-line max-len
+    const collectFunctionResourcePaths = proxyquire( '<tools>/build/collectFunctionResources/collectFunctionConfigurations',{ // eslint-disable-line max-len
       '../loadResourceDefinition': sinon.spy( ( _, x )=>Object.assign( { definition }, x ) )
     } );
 

@@ -47,7 +47,7 @@ const loadResourceDefinition
  * @returns {FunctionConfiguration}
  *   A dictionary of all function definitions found at the listed locations
  */
-function collectFunctionDefinitions( functionConfigurationPaths ){
+function collectFunctionConfigurations( functionConfigurationPaths ){
 
   if( functionConfigurationPaths == null ) return;
 
@@ -61,5 +61,5 @@ function collectFunctionDefinitions( functionConfigurationPaths ){
 
 }
 
-module.exports = collectFunctionDefinitions;
+module.exports = collectFunctionConfigurations;
 
